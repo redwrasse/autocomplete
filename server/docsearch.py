@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from autocomplete import Autocomplete1
-
+import time
 #
 # OPTIONS = [
 #     "Apple",
@@ -34,8 +34,12 @@ def root():
 def search():
     data = request.get_json()
     user_input = data['userInput'].lower()
+    start = time.time()
     print(f'user input: {user_input}')
     matches = ac.match(user_input)
+    end = time.time()
+    diff = end - start
+    print(f'search time: {diff}')
     return jsonify({'matches': matches})
 
 

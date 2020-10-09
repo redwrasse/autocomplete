@@ -20,8 +20,6 @@ class Autocomplete1:
         if len(user_input.strip()) == 0:
             return results
         for i, ln in enumerate(self.fl):
-            if i > 1000:
-                break
             ln = ln.lower().strip()
             if user_input in ln:
                 results.append(ln)
@@ -34,7 +32,8 @@ class Autocomplete2:
 
 def benchmark():
     acs = [Autocomplete1]
-    test_inputs = ["person", "clock", "horse", "wall", "king", "after eating"]
+    test_inputs = ["person", "clock", "horse", "wall", "king", "after eating",
+                    "slept for a few", "below the"]
     for ac in acs:
         o = ac()
         start = time.time()

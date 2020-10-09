@@ -50,7 +50,7 @@ class Autocomplete extends Component {
                 // clear existing
                 this.setState({filteredOptions: []});
                 let matches = data.matches;
-                for (var i = 0; i < matches.length; i++) {
+                for (var i = 0; i < Math.min(10, matches.length); i++) {
                     this.setState({ filteredOptions: [...this.state.filteredOptions, matches[i]] })
                 }
             })
