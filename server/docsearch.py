@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from autocomplete import Autocomplete1
+import autocomplete
 import time
 #
 # OPTIONS = [
@@ -22,7 +22,7 @@ def create_app():
 
 
 app = create_app()
-ac = Autocomplete1()
+ac = autocomplete.Autocomplete2()
 
 
 @app.route('/')

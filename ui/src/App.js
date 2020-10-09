@@ -141,6 +141,7 @@ class Autocomplete extends Component {
         }
         return (
             <React.Fragment>
+                <h1>Autocomplete</h1>
                 <div className="search">
                     <input
                         type="text"
