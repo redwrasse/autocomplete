@@ -1,2 +1,3 @@
 docsearch
 ---
+![](./autocomplete.gif)
