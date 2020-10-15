@@ -9,12 +9,10 @@ def match_func1(input, line):
     return input in line
 
 
-
 class Autocomplete1:
     """
     Open file and scan (first seek to beginning) to match line
     containing input
-
     """
 
     def __init__(self):
@@ -34,8 +32,10 @@ class Autocomplete1:
 
 
 class Autocomplete2:
-    """ Open file and store in memory line by line, run match line containing
-     input """
+    """
+    Open file and store in memory line by line, run match line
+    containing input
+    """
 
     def __init__(self):
         self.name = 'ac2'
@@ -53,6 +53,16 @@ class Autocomplete2:
             if match_func1(user_input, ln):
                 results.append(ln)
         return results
+
+
+class Autocomplete3:
+    """ Prefix tree-based autocomplete """
+
+    def __init__(self):
+        self.state = None
+
+    def match(self, user_input):
+        pass
 
 
 def benchmark():
