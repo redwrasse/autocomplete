@@ -1,4 +1,4 @@
-docsearch
+autocomplete
 ---
 ![](./autocomplete.gif)
 
