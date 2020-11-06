@@ -18,6 +18,8 @@ Download text resources
 ./download_text.sh
 ```
 
+### Run
+
 Launch server
 
 ```
