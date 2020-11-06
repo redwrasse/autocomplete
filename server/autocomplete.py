@@ -56,6 +56,41 @@ class Autocomplete2:
 
 
 class Autocomplete3:
+
+    """ Same as version 2 but refine down list for each
+    incremental input. First stateful autocomplete."""
+
+    def __init__(self):
+        self.name = 'ac3'
+        self.lines = []
+        self.reset_lines()
+        self.previous_user_input = None
+
+    def reset_lines(self):
+        self.lines = []
+        with open(WAR_AND_PEACE) as fl:
+            for ln in fl:
+                self.lines.append(ln)
+
+    def match(self, user_input):
+        if self.previous_user_input is not None and \
+                user_input[:-1] != self.previous_user_input:
+            self.reset_lines()
+        results = []
+        updated_lines = []
+        if len(user_input.strip()) == 0:
+            return results
+        for i, ln in enumerate(self.lines):
+            ln = ln.lower().strip()
+            if match_func1(user_input, ln):
+                results.append(ln)
+                updated_lines.append(ln)
+        self.lines = updated_lines
+        self.previous_user_input = user_input
+        return results
+
+
+class Autocomplete4:
     """ Prefix tree-based autocomplete """
 
     def __init__(self):
@@ -66,7 +101,8 @@ class Autocomplete3:
 
 
 def benchmark():
-    acs = [Autocomplete1, Autocomplete2]
+    # doesn't work as implemented for ac3 because it is stateful
+    acs = [Autocomplete1, Autocomplete2, Autocomplete3]
     test_inputs = ["after eating", "slept for a few", "below the"]
     for ac in acs:
         o = ac()
@@ -77,7 +113,7 @@ def benchmark():
                 res = o.match(partial_inpt)
         end = time.time()
         diff = end - start
-        print(f'version: {o.name} time: {diff}')
+        print(f'version: {o.name} time: {diff}s')
 
 
 if __name__ == "__main__":
