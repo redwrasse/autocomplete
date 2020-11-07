@@ -41,5 +41,6 @@ npm start
 A rudimentary benchmark of the different autocomplete versions can be run
 
 ```
-python3 server/autocomplete.py
+cd server
+python3 autocomplete.py
 ```
