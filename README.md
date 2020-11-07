@@ -14,7 +14,7 @@ Versions
 
 ### Setup
 
-Download text resources (currently War and Peae)
+Download text resources (currently War and Peace)
 
 ```
 ./download_text.sh
