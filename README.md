@@ -35,3 +35,11 @@ Launch client
 cd ui
 npm start
 ```
+
+### Benchmarks
+
+A rudimentary benchmark of the different autocomplete versions can be run
+
+```
+python3 server/autocomplete.py
+```
