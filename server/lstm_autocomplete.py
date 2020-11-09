@@ -34,8 +34,9 @@ def prepare_war_and_peace():
 
 class LSTMAutocomplete:
 
-    def __init__(self):
+    def __init__(self, lstm_dim=10):
         self.null_char = '0'
+        self.lstm_dim= lstm_dim
         self.text = self.prepare_data()
         self.model = self.get_model()
 
@@ -43,7 +44,7 @@ class LSTMAutocomplete:
         maxlen = max(len(s) for s in self.text)
         model = keras.Sequential([
             keras.Input(shape=(maxlen - 1, 256)),
-            LSTM(10),#LSTM(128),
+            LSTM(self.lstm_dim),#LSTM(128),
             Dense(256, activation='softmax'),
         ])
         optimizer = keras.optimizers.RMSprop(learning_rate=0.01)
@@ -81,6 +82,9 @@ class LSTMAutocomplete:
         character = chr(index)
         print(f'predicted next char: {character}')
 
+    def ranked_query_completion(self, query):
+        pass
+
     def train(self):
 
         model = self.get_model()
@@ -88,7 +92,6 @@ class LSTMAutocomplete:
         checkpoint = ModelCheckpoint(filepath=filepath,
                                      verbose=1,  mode='max')
         callbacks_list = [checkpoint]
-
         maxlen = max(len(s) for s in self.text)
         n_epochs = 50
         batch_size = 128
