@@ -1,6 +1,5 @@
 # autocomplete.py
 import time
-import difflib
 
 WAR_AND_PEACE = '../war_and_peace.txt'
 
