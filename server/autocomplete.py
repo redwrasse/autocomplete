@@ -1,5 +1,6 @@
 # autocomplete.py
 import time
+from lstm_autocomplete import LSTMAutocomplete
 
 WAR_AND_PEACE = '../war_and_peace.txt'
 
@@ -20,6 +21,7 @@ class Autocomplete1:
 
     def match(self, user_input):
         self.fl.seek(0)
+        user_input = user_input.lower()
         results = []
         if len(user_input.strip()) == 0:
             return results
@@ -44,6 +46,7 @@ class Autocomplete2:
                 self.lines.append(ln)
 
     def match(self, user_input):
+        user_input = user_input.lower()
         results = []
         if len(user_input.strip()) == 0:
             return results
@@ -72,6 +75,7 @@ class Autocomplete3:
                 self.lines.append(ln)
 
     def match(self, user_input):
+        user_input = user_input.lower()
         if self.previous_user_input is not None and \
                 user_input[:-1] != self.previous_user_input:
             self.reset_lines()
@@ -90,6 +94,18 @@ class Autocomplete3:
 
 
 class Autocomplete4:
+
+    def __init__(self):
+        self.name = 'ac4'
+        self.lstm_ac = LSTMAutocomplete()
+
+    def match(self, user_input):
+        completions = self.lstm_ac.ranked_query_completion(user_input)
+        print(completions)
+        return [c[0] for c in completions]
+
+
+class Autocomplete5:
     """ Prefix tree-based autocomplete """
 
     def __init__(self):

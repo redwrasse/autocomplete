@@ -106,6 +106,7 @@ class LSTMAutocomplete:
         return next_completions
 
     def ranked_query_completion(self, query):
+        print(f'query: {query}')
         prob = 1.
         completions = [(query, prob)]
         for i in range(self.maxlen - len(query)):
@@ -166,7 +167,7 @@ class LSTMAutocomplete:
 
 def main():
     lstm_ac = LSTMAutocomplete()
-    query = 'is '
+    query = 'This is '
     lstm_ac.predict_next_char(query)
     completions = lstm_ac.ranked_query_completion(query)
     print(completions)

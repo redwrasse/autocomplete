@@ -22,7 +22,7 @@ def create_app():
 
 
 app = create_app()
-ac = autocomplete.Autocomplete3()
+ac = autocomplete.Autocomplete4()
 
 
 @app.route('/')
@@ -33,7 +33,7 @@ def root():
 @app.route('/search', methods=['POST'])
 def search():
     data = request.get_json()
-    user_input = data['userInput'].lower()
+    user_input = data['userInput']
     start = time.time()
     print(f'user input: {user_input}')
     matches = ac.match(user_input)
