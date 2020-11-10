@@ -3,7 +3,6 @@ autocomplete
 ![](./autocomplete.gif)
 
 
-### Autocomplete
 Versions
 
 * Autocomplete1: Open file and scan (first seek to beginning) to match line containing input, for each new input.
