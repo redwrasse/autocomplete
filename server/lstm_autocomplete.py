@@ -36,9 +36,10 @@ class LSTMAutocomplete:
 
     def __init__(self, lstm_dim=10):
         self.null_char = '0'
-        self.lstm_dim= lstm_dim
+        self.lstm_dim = lstm_dim
         self.text = self.prepare_data()
         self.model = self.get_model()
+        self.maxlen = max(len(s) for s in self.text)
 
     def build_model(self):
         maxlen = max(len(s) for s in self.text)
@@ -63,10 +64,9 @@ class LSTMAutocomplete:
             print('built new model')
         return model
 
-    def predict_next_char(self, query):
-        print(f'generating prediction for "{query}"')
+    def next_char_dist(self, query):
         maxlen = max(len(s) for s in self.text)
-        x_pred = np.zeros((1, maxlen-1, 256))
+        x_pred = np.zeros((1, maxlen - 1, 256))
         k = len(query)
         for t in range(maxlen - 1):
             if t < k:
@@ -76,14 +76,51 @@ class LSTMAutocomplete:
             o = ord(char)
             if o < 256:
                 x_pred[0, t, o] = 1
-        model = self.get_model()
-        pred = model.predict(x_pred, verbose=0)[0]
-        index = np.argmax(pred)
-        character = chr(index)
-        print(f'predicted next char: {character}')
+        model = self.model
+        dist = model.predict(x_pred, verbose=0)[0]
+        return dist
+
+    def predict_next_char(self, query):
+        dist = self.next_char_dist(query)
+        index = np.argmax(dist)
+        nextchar = chr(index)
+        print(f'predicted next char: {nextchar}')
+        return nextchar
+
+    def completion_next(self, query, prob):
+        prob_cutoff = 1e-1
+
+        if query[-1] in ['!', '?', '.']:
+            return [(query, prob)]
+
+        next_completions = []
+        dist = self.next_char_dist(query)
+        top_two = dist.argsort()[-2:][::-1]
+        c1, c2 = chr(top_two[0]), chr(top_two[1])
+        for i, c in enumerate([c1, c2]):
+            if c != self.null_char:
+                next_query = query + c
+                next_query_prob = prob * dist[top_two[i]]
+                if next_query_prob > prob_cutoff:
+                    next_completions.append((next_query, next_query_prob))
+        return next_completions
 
     def ranked_query_completion(self, query):
-        pass
+        prob = 1.
+        completions = [(query, prob)]
+        for i in range(self.maxlen - len(query)):
+            next_completions = self.qc(completions)
+            #print(next_completions)
+            if set(completions) == set(next_completions):
+                break
+            completions = next_completions
+        return completions
+
+    def qc(self, completions):
+        all_c = []
+        for query, prob in completions:
+            all_c += self.completion_next(query, prob)
+        return all_c
 
     def train(self):
 
@@ -129,8 +166,10 @@ class LSTMAutocomplete:
 
 def main():
     lstm_ac = LSTMAutocomplete()
-    query = 'This i'
+    query = 'is '
     lstm_ac.predict_next_char(query)
+    completions = lstm_ac.ranked_query_completion(query)
+    print(completions)
 
 
 if __name__ == '__main__':
