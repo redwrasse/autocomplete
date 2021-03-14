@@ -1,5 +1,6 @@
 body {
-  background: #2169cc;
+  background: #f1edff;
+  font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
 }
 .search {
   width: 30rem;
@@ -10,7 +11,9 @@ body {
 .search-box {
   border: 4px solid transparent;
   border-radius: 2px;
+  background-color: #e3e1e8;
   font-size: 2rem;
+  font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
   width: 100%;
   padding: 1rem;
   transition: width 0.3s;
@@ -18,7 +21,7 @@ body {
 .search-box:focus {
   width: 100%;
   outline: none;
-  border: 4px solid #08a1b6;
+  border: 4px solid #f1edff;
 }
 .search-btn {
   height: 100%;
@@ -59,22 +62,23 @@ ul.options li {
   background: white;
   margin: 10px auto;
   padding: 10px;
-  font-size: 1.2rem;
+  font-size: 1.0rem;
+  font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
   width: 100%;
   border-radius: 2px;
 }
 ul.options li:hover {
   font-weight: bold;
-  color: #00b4cc;
+  color: #341d2e;
   cursor: pointer;
   transition: 0.3s all;
 }
 
 ul.options li.option-active {
-  background: whitesmoke;
+  background: #341d2e;
   font-size: 1.5rem;
-  color: #00b4cc;
+  color: #f1edff;
 }
 .no-options {
-  color: white;
+  color: #6451f5;
 }

@@ -2,17 +2,6 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import autocomplete
 import time
-#
-# OPTIONS = [
-#     "Apple",
-#     "Papaya",
-#     "Persimmon",
-#     "Paw Paw",
-#     "Prickly Pear",
-#     "Peach",
-#     "Pomegranate",
-#     "Pineapple"
-# ]
 
 
 def create_app():
@@ -22,7 +11,7 @@ def create_app():
 
 
 app = create_app()
-ac = autocomplete.Autocomplete4()
+ac = autocomplete.Autocomplete3()
 
 
 @app.route('/')
@@ -41,7 +30,3 @@ def search():
     diff = end - start
     print(f'search time: {diff}')
     return jsonify({'matches': matches})
-
-
-if __name__ == "__main__":
-    app.run()

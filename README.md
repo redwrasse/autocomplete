@@ -11,35 +11,9 @@ Versions
 * Autocomplete3: Prefix tree-based autocomplete (tbd).
 * Autocomplete4: Machine-learning based autocomplete. Based off an LSTM next-character model.
 
-### Setup
-
-Download text resources (currently War and Peace)
-
-```
-./download_text.sh
-```
 
 ### Run
 
-Launch server
+``` docker-compose up --build```
 
-```
-cd server
-python3 docsearch.py
-```
 
-Launch client
-
-```
-cd ui
-npm start
-```
-
-### Benchmarks
-
-A rudimentary benchmark of the different autocomplete versions can be run
-
-```
-cd server
-python3 autocomplete.py
-```

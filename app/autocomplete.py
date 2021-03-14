@@ -1,8 +1,7 @@
 # autocomplete.py
 import time
-from lstm_autocomplete import LSTMAutocomplete
 
-WAR_AND_PEACE = '../war_and_peace.txt'
+WAR_AND_PEACE = './war_and_peace.txt'
 
 
 def match_func1(input, line):
@@ -91,18 +90,6 @@ class Autocomplete3:
         self.lines = updated_lines
         self.previous_user_input = user_input
         return results
-
-
-class Autocomplete4:
-
-    def __init__(self):
-        self.name = 'ac4'
-        self.lstm_ac = LSTMAutocomplete()
-
-    def match(self, user_input):
-        completions = self.lstm_ac.ranked_query_completion(user_input)
-        print(completions)
-        return [c[0] for c in completions]
 
 
 class Autocomplete5:

@@ -1,0 +1,28 @@
+# docker-compose.yaml
+
+version: '3.7'
+services:
+  app:
+    build: app
+    restart: always
+    ports:
+      - 5000:5000
+    volumes:
+    - src:/src
+    networks:
+      - backnet
+      - frontnet
+  web:
+    build: web
+    restart: always
+    ports:
+      - 80:80
+    networks:
+      - frontnet
+
+volumes:
+  src:
+networks:
+  backnet:
+  frontnet:
+
