@@ -9,7 +9,7 @@ services:
     dockerfilePath: ./web/Dockerfile
     dockerContext: ./web/
     autoDeploy: true
-  - type: pserve
+  - type: pserv
     name: autocomplete-app
     env: docker
     repo: https://github.com/redwrasse/autocomplete
