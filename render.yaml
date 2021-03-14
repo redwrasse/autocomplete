@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: autocomplete-web
+    env: docker
+    repo: https://github.com/redwrasse/autocomplete
+    region: oregon
+    plan: starter
+    branch: master
+    dockerfilePath: ./web/Dockerfile
+    dockerContext: ./web/
+    autoDeploy: true
+  - type: web
+    name: autocomplete-app
+    env: docker
+    repo: https://github.com/redwrasse/autocomplete
+    region: oregon
+    plan: starter
+    branch: master
+    dockerfilePath: ./app/Dockerfile
+    dockerContext: ./app/
+    autoDeploy: true
