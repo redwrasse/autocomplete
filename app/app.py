@@ -11,7 +11,7 @@ def create_app():
 
 
 app = create_app()
-ac = autocomplete.Autocomplete3()
+ac = autocomplete.Autocomplete()
 
 
 @app.route('/')
