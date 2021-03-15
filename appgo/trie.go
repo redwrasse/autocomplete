@@ -48,7 +48,17 @@ func (t *Trie) StartsWith(prefix string) bool {
 }
 
 func (t *Trie) AutoCompletions(prefix string) []string {
-	return t.AllCompletions()
+	completions := make([]string, 0)
+	curr := *t
+	for _, c := range prefix {
+		if !curr.KeyExists(c) { return completions }
+		curr = curr.Children[c]
+	}
+	completions = curr.AllCompletions()
+	for i, _ := range completions {
+		completions[i] = prefix + completions[i]
+	}
+	return completions
 }
 
 func (t *Trie) AllCompletions() []string {
