@@ -38,10 +38,11 @@ func (HTH HttpTrieHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	ExampleTrie()
 
-	trieHandler := InitializeTrieHandler()
-	fmt.Printf("%v\n", trieHandler.t.AutoCompletions("zzzzzzzz"))
-	//log.Fatal(http.ListenAndServe(":8080", trieHandler))
+	//trieHandler := InitializeTrieHandler()
+	//fmt.Printf("%v\n", trieHandler.t.AutoCompletions("zzzzzzzz"))
+	////log.Fatal(http.ListenAndServe(":8080", trieHandler))
 
 }
 
@@ -78,6 +79,7 @@ func ExampleTrie() {
 	t.Search("foo")
 	println(t.Search("fooz"))
 	println(t.Search("oaf"))
-	fmt.Printf("%v\n", t.AutoCompletions("fo"))
+	println(t.Search("foo"))
+	fmt.Printf("%v\n", t.AutoCompletions("zzz"))
 
 }
