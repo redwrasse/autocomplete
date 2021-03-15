@@ -1,3 +1,0 @@
-./download_text.sh
-python3 server/app.py &
-cd ui && npm start
