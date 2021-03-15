@@ -44,7 +44,7 @@ class Autocomplete extends Component {
             },
             body: JSON.stringify({ userInput: userInput })
         };
-        fetch('http://localhost:5000/search', requestOptions)
+        fetch('http://localhost:8080/search', requestOptions)
             .then(response => response.json())
             .then(data => {
                 // clear existing

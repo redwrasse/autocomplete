@@ -30,18 +30,18 @@ func (HTH HttpTrieHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	p := CleanLine(string(prefix))
 	fmt.Println("Read prefix: ", p)
-	fmt.Println("Autocompleting on %s", p)
+	fmt.Printf("Autocompleting on %v\n", p)
 	completions := HTH.t.AutoCompletions(p)
 	//fmt.Printf("%v\n", completions)
 	json.NewEncoder(w).Encode(completions)
-	fmt.Println("called autocomplete handler, returning %d completions", len(completions))
+	fmt.Printf("called autocomplete handler, returning %v completions\n", len(completions))
 }
 
 func main() {
 
 	trieHandler := InitializeTrieHandler()
-	fmt.Printf("%v\n", trieHandler.t.AutoCompletions("za"))
-	////log.Fatal(http.ListenAndServe(":8080", trieHandler))
+	//fmt.Printf("%v\n", trieHandler.t.AutoCompletions("za"))
+	log.Fatal(http.ListenAndServe(":", trieHandler))
 
 }
 
