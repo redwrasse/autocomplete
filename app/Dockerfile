@@ -1,24 +1,17 @@
+FROM golang:1.11.5
 
-# build stage
-FROM golang as builder
+ENV APP_NAME app
+ENV PORT 8080
 
-ENV GO111MODULE=on
+#RUN wget 'http://www.gutenberg.org/files/2600/2600-0.txt' -O war_and_peace.txt
 
-WORKDIR /code
+COPY . /go/src/${APP_NAME}
+WORKDIR /go/src/${APP_NAME}
 
-COPY go.mod /code/
+RUN go get ./
+RUN go build -o ${APP_NAME}
 
-RUN wget 'http://www.gutenberg.org/files/2600/2600-0.txt' -O /code/war_and_peace.txt
-#RUN mv war_and_peace.txt /code/
+CMD ./${APP_NAME}
 
-RUN go mod download
+EXPOSE ${PORT}
 
-COPY . /code/
-
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build
-
-# final stage
-FROM scratch
-COPY --from=builder /code/app /code/
-EXPOSE 8080
-ENTRYPOINT ["/code/app"]
