@@ -35,4 +35,12 @@ class TestTrie(unittest.TestCase):
         result = trie.autocompletions('fo')
         assert result == expected
 
-
+    def test_serialize(self):
+        trie = Trie()
+        trie.insert('foo')
+        trie.insert('foz')
+        trie.insert('bar')
+        actual = trie.serialize()
+        expected = 'foo$z$bar$'
+        assert actual == expected, \
+            print(f'should have encoded to {expected}')

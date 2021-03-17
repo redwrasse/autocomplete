@@ -53,3 +53,18 @@ class Trie:
                 completions.append(k)
         return completions
 
+    def serialize(self):
+        enc = []
+
+        def pre_enc(c, curr):
+            enc.append(c)
+            if c != '$':
+                for ch in curr:
+                    pre_enc(ch, curr[ch])
+
+        pre_enc('', self.d)
+        return ''.join(enc)
+
+    def deserialize(self):
+        pass
+
