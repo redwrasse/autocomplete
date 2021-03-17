@@ -20,7 +20,7 @@ App: A Python Flask app, serves the prefix tree.
 ```
 
 A pre-order serialization/deserialization for disk persistence has 
-been [implemented](../app/trie.py) as well. The serialization adds the number of children for the given 
+been [implemented](https://github.com/redwrasse/autocomplete/blob/b758c5fe71efbb29fc9ad14bad7bcf2b76cfd549/app/trie.py#L69-L106) as well. The serialization adds the number of children for the given 
 node prior to adding the given node to enable deserialization. This means, of course, 
 that any text added to the prefix tree must be alphabetic only.
 
