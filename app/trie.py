@@ -65,6 +65,20 @@ class Trie:
         pre_enc('', self.d)
         return ''.join(enc)
 
-    def deserialize(self):
-        pass
+    def deserialize(self, data):
+        enc = list(data)
+        # big problem: can't serialize /deserialized preorder if don't know
+        # number of children for a given node.
+        def pre_dec(enc):
+            c = enc.pop(0)
+            if c == '$':
+                return {'$': {}}
+            curr = { c: {}}
+            left = pre_dec(enc) # this isn't correct, there are multiple children
+            right = pre_dec(enc)
+            curr[c] = {**left, **right}
+            return curr
+
+        return pre_dec(enc)
+
 

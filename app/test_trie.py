@@ -44,3 +44,8 @@ class TestTrie(unittest.TestCase):
         expected = 'foo$z$bar$'
         assert actual == expected, \
             print(f'should have encoded to {expected}')
+
+    def test_deserialize(self):
+        data = 'foo$z$bar$'
+        trie = Trie()
+        trie.deserialize(data)
