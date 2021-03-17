@@ -6,6 +6,19 @@ class Trie:
     def __init__(self):
         self.d = {}
 
+    @staticmethod
+    def from_dict(d):
+        trie = Trie()
+        trie.d = d
+        return trie
+
+    def __str__(self):
+        return str(self.d)
+
+    def __eq__(self, other):
+        if isinstance(other, self.__class__):
+            return self.d == other.d
+
     def insert(self, word):
         curr = self.d
         for c in word:
@@ -56,29 +69,42 @@ class Trie:
     def serialize(self):
         enc = []
 
-        def pre_enc(c, curr):
-            enc.append(c)
-            if c != '$':
-                for ch in curr:
-                    pre_enc(ch, curr[ch])
+        def pre_enc(node):
+            c, curr = node
+            if c == '$':
+                enc.append(str(1))
+                enc.append(c)
+            else:
+                n_ch = len(curr)  # num. of children
+                enc.append(str(n_ch))  # encode num. of children for decoding
+                enc.append(c)
+                for child_c, child_d in curr.items():
+                    child_node = child_c, curr[child_c]
+                    pre_enc(child_node)
 
-        pre_enc('', self.d)
+        root = '*', self.d
+        pre_enc(root)
         return ''.join(enc)
 
-    def deserialize(self, data):
-        enc = list(data)
-        # big problem: can't serialize /deserialized preorder if don't know
-        # number of children for a given node.
+    @staticmethod
+    def deserialize(data):
+
+        enc_data = list(data)
+
         def pre_dec(enc):
+            if not enc: return {}
+            n_ch = int(enc.pop(0))
             c = enc.pop(0)
-            if c == '$':
-                return {'$': {}}
-            curr = { c: {}}
-            left = pre_dec(enc) # this isn't correct, there are multiple children
-            right = pre_dec(enc)
-            curr[c] = {**left, **right}
+            if c == '$': return {'$': {}}
+            curr = {c: {}}
+            for i in range(n_ch):
+                child_d = pre_dec(enc)
+                curr[c].update(child_d)
             return curr
 
-        return pre_dec(enc)
+        d = pre_dec(enc_data)['*']
+        return Trie.from_dict(d)
+
+
 
 
