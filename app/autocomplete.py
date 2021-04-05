@@ -24,5 +24,3 @@ class Autocomplete:
         if len(clean_text(user_input)) == 0:
             return results
         return self.trie.autocompletions(user_input)
-
-ac = Autocomplete()
