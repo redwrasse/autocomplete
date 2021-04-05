@@ -1,8 +1,10 @@
 # autocomplete.py
 from trie import Trie
+import os
 
 
-WAR_AND_PEACE = './war_and_peace.txt'
+WAR_AND_PEACE = os.path.join(os.path.dirname(__file__),
+                             'war_and_peace.txt')
 
 
 def clean_text(ln):
