@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import autocomplete
+import shard
 
 
 def create_app():
@@ -10,7 +10,7 @@ def create_app():
 
 
 app = create_app()
-ac = autocomplete.Autocomplete()
+ac_shard = shard.Shard(start='a', end='z')
 
 
 @app.route('/health')
@@ -22,5 +22,5 @@ def root():
 def search():
     data = request.get_json()
     user_input = data['userInput']
-    matches = ac.match(user_input)
+    matches = ac_shard.match(user_input)
     return jsonify({'matches': matches})

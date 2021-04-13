@@ -1,3 +1,4 @@
 # Created by .ignore support plugin (hsz.mobi)
 .idea/
 war_and_peace.txt
+app/*.pyc
