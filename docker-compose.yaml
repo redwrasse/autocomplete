@@ -2,14 +2,43 @@
 
 version: '3.7'
 services:
-  app:
+  appshard1:
     build: app
+    image: &img app
     restart: always
+    environment:
+      - PREFIX_RANGE=a-f
     ports:
       - 5000:5000
     volumes:
     - src:/src
     networks:
+      - backnet
+      - frontnet
+  appshard2:
+    build: app
+    image: *img
+    restart: always
+    environment:
+    - PREFIX_RANGE=g-p
+    ports:
+    - 5000:5000
+    volumes:
+    - src:/src
+    networks:
+    - backnet
+    - frontnet
+  appshard3:
+      build: app
+      image: *img
+      restart: always
+      environment:
+      - PREFIX_RANGE=q-z
+      ports:
+      - 5000:5000
+      volumes:
+      - src:/src
+      networks:
       - backnet
       - frontnet
   web:

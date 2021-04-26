@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import shard
+import os
 
 
 def create_app():
@@ -10,7 +11,11 @@ def create_app():
 
 
 app = create_app()
-ac_shard = shard.Shard(start='a', end='z')
+prefix_range = os.environ['PREFIX_RANGE']
+start, end = prefix_range.split('-')
+print(f'building shard {start}-{end} ...')
+ac_shard = shard.Shard(start=start,
+                       end=end)
 
 
 @app.route('/health')
